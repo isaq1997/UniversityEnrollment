@@ -29,6 +29,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public CourseResponse getById(@PathVariable Long id) {
+
         return courseService.getById(id);
     }
 
