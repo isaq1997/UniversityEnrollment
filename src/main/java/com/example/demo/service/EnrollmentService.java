@@ -13,7 +13,6 @@ import com.example.demo.repository.EnrollmentRepository;
 import com.example.demo.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +25,8 @@ public class EnrollmentService {
     private  CourseRepository courseRepository;
     @Autowired
     private  EnrollmentRepository enrollmentRepository;
-    @Autowired
 
-    private  ApplicationEventPublisher eventPublisher;
+
 
     @Transactional
     public EnrollmentResponse enroll(EnrollRequest req) {
@@ -46,9 +44,7 @@ public class EnrollmentService {
         course.incrementEnrolled();   // throws IllegalStateException("Course is full")
 
         Enrollment enrollment = enrollmentRepository.save(new Enrollment(student, course));
-        /*eventPublisher.publishEvent(new EnrollmentCreatedEvent(
-                student.getEmail(), student.getName(),
-                course.getCode(), course.getTitle()));*/
+
         return toResponse(enrollment);
     }
 
